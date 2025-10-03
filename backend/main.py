@@ -1,18 +1,28 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 import pandas as pd
 import joblib
+import os
 from pathlib import Path
 from backend.ml.features import make_features
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse, FileResponse
 
 DATA_HOURLY = Path("backend/data/respond_hourly.csv")
 DATA_MONTHLY = Path("backend/data/respond.csv")
 MODEL_PATH = Path("backend/models/forecast.pkl")
 
+# Инициализация приложения
 app = FastAPI(title="RE:SPOND Dashboard API")
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+# --- Раздача фронтенда ---
+frontend_dir = os.path.join(os.path.dirname(__file__), "..", "frontend")
+app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
+
+@app.get("/")
+async def root():
+    """Главная страница — отдаём index.html"""
+    return FileResponse(os.path.join(frontend_dir, "index.html"))
 
 # Разрешаем CORS
 app.add_middleware(
