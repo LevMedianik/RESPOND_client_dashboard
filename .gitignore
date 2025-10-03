@@ -23,9 +23,6 @@ venv/
 # MLflow
 mlruns/
 
-# Data
-backend/data/*.csv
-
 # OS
 .DS_Store
 Thumbs.db
