@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>RE:SPOND — Dashboard клиента</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="static/favicon.png" />
+</head>
+<body class="bg-white text-black flex flex-col">
+
+<!-- Витрина -->
+<section class="relative w-full h-[768px] flex flex-col justify-center items-center text-center overflow-hidden">
+  <!-- Фон -->
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('static/bg.png'); z-index:-1;"></div>
+
+  <!-- Логотип -->
+  <img src="static/logo.png" alt="RE:SPOND" 
+       class="absolute top-6 left-10 h-32 w-auto" />
+
+  <!-- Контент -->
+  <h1 class="text-6xl font-bold text-orange-500 mt-10">
+    Dashboard клиента <span class="font-extrabold">RE:SPOND</span>
+  </h1>
+  <div class="w-40 h-2 bg-orange-500 rounded my-6"></div>
+  <p class="text-2xl text-orange-600 max-w-4xl mx-auto leading-relaxed">
+    Ваши цифры говорят сами за себя. RE:SPOND помогает увидеть динамику лидов, 
+    контролировать CPL и ROI, а также думать на шаг вперёд. Dashboard не только фиксирует текущие показатели, 
+    но и строит прогнозы, позволяя корректировать стратегию ещё до того, как возникнут риски.
+  </p>
+  <a href="#dashboard" class="mt-12 px-10 py-5 text-2xl text-white font-semibold rounded-full 
+     bg-gradient-to-r from-orange-400 to-orange-500 shadow hover:scale-105 transition">
+    Перейти к показателям
+  </a>
+</section>
+
+  <!-- Дашборд -->
+<main id="dashboard" class="w-full h-[600px] bg-[#ffddce] py-6 pb-10">
+  <div class="grid grid-cols-[1fr_2fr_1fr] gap-6 px-10 h-full items-stretch">
+    
+    <!-- KPI -->
+    <section class="card accent-border flex flex-col">
+      <h2 class="section-title">KPI карточки</h2>
+      <div class="space-y-4 flex-1">
+        <div class="kpi-card accent-border">
+          <div class="kpi-title">Leads (заявки)</div>
+          <div id="leadsValue" class="kpi-value">—</div>
+          <div class="kpi-note">Количество входящих заявок</div>
+        </div>
+        <div class="kpi-card accent-border">
+          <div class="kpi-title">CPL</div>
+          <div id="cplValue" class="kpi-value">—</div>
+          <div class="kpi-note">Стоимость одной заявки</div>
+        </div>
+        <div class="kpi-card accent-border">
+          <div class="kpi-title">ROI</div>
+          <div id="roiValue" class="kpi-value">—</div>
+          <div class="kpi-note">Рентабельность инвестиций</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- График -->
+    <section class="card accent-border flex flex-col">
+      <h2 class="section-title">Динамика лидов</h2>
+      <div class="flex-1 relative">
+        <canvas id="leadsChart" class="absolute inset-0 w-full h-full"></canvas>
+      </div>
+    </section>
+
+    <!-- Аномалии -->
+    <section class="card accent-border flex flex-col">
+      <h2 class="section-title">Аномалии CPL</h2>
+      
+      <!-- Отдельные карточки -->
+      <div class="space-y-4 mt-2">
+        <div class="kpi-card accent-border">
+          <div class="kpi-title">Месяц</div>
+          <div class="kpi-value" id="anomalyMonth">2023-02</div>
+        </div>
+        <div class="kpi-card accent-border">
+          <div class="kpi-title">Значение</div>
+          <div class="kpi-value" id="anomalyValue">29.66</div>
+        </div>
+        <div class="kpi-card accent-border">
+          <div class="kpi-title">Z-score</div>
+          <div class="kpi-value" id="anomalyZscore">-2.87</div>
+        </div>
+      </div>
+
+      <!-- Комментарии -->
+      <div class="mt-5">
+        <h3 class="section-subtitle">Комментарии и рекомендации</h3>
+        <p id="anomaliesNotes" class="text-sm text-gray-700">
+          ⚠ <span class="text-red-600 font-semibold">CPL ниже нормы (Z = -2.87).</span><br>
+          Рекомендации: проверить качество лидов и корректность данных.
+        </p>
+      </div>
+    </section>
+  </div>
+
+    <!-- Подвал -->
+    <footer class="h-[50px] flex items-center justify-center text-sm text-gray-500 border-t bg-white mt-10">
+      © 2025 — RE:SPOND Dashboard клиента
+    </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
